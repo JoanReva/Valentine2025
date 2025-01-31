@@ -38,13 +38,13 @@ noButton.addEventListener("mouseover", () => {
 function handleNoClick() {
   noButton.style.display = "none";
   yesButton.classList.add("highlight");
-  showSnackbar("¡JAJA, no tienes opción! 😆💕");
+  showSnackbar("¡Error 404: 'No' no encontrado! 🤖💔 Intenta de nuevo 😆💕");
 }
 
 function handleYesClick() {
   buttonsContainer.style.display = "none"; // Oculta los botones
   showSnackbar(
-    "¡Sabía que dirías que sí, porque soy genial! 😎\n...\nNah, ¡Es porque te amooo! 💖"
+    "¿Ves? El destino ya lo había decidido 😏\nAhora oficialmente eres mi Valentine 💕"
   );
 
   heart.classList.add("expand-heart");
@@ -54,7 +54,9 @@ function handleYesClick() {
     body.style.background = "#001f3f";
     heart.style.display = "none";
 
-    titleText.textContent = "¡Eres mi Valentine! 💖";
+    titleText.textContent =
+      "✨ Al final, lo mejor de mi día siempre eres tú ✨";
+
     // Muestra el mensaje romántico
     loveMessage.classList.remove("hidden");
     loveMessage.classList.add("fade-in");
@@ -73,18 +75,26 @@ function showSnackbar(message) {
     snackbar.classList.remove("show");
   }, 3000);
 }
+
+yesButton.addEventListener("click", handleYesClick);
+noButton.addEventListener("click", handleNoClick);
+
+//Fuegos artificiales
 function startFireworks() {
+  //Cantidad de fuegos artificiales
   for (let i = 0; i < 10; i++) {
     setTimeout(() => {
       launchFirework();
-    }, i * 500);
+    }, i * 200); // Retraso entre lanzamiento
   }
 }
 
 function launchFirework() {
   const firework = document.createElement("div");
   firework.classList.add("firework-core");
-  firework.style.left = `${Math.random() * 80 + 10}vw`;
+
+  // Posiciones aleatorias desde donde se lanzarán los fuegos
+  firework.style.left = `${Math.random() * 90 + 5}vw`;
   firework.style.bottom = "0px";
 
   fireworksContainer.appendChild(firework);
@@ -97,12 +107,12 @@ function launchFirework() {
 
 function explodeFirework(position) {
   const colors = ["#ff4d6d", "#ff9a9e", "#ffd700", "#8a2be2", "#00c3ff"];
-  const numParticles = 20;
+  const numParticles = 40;
 
   for (let i = 0; i < numParticles; i++) {
     setTimeout(() => {
       createHeartFirework(position, colors[i % colors.length]);
-    }, i * 100);
+    }, i * 50);
   }
 }
 
@@ -113,8 +123,9 @@ function createHeartFirework(position, color) {
   heart.style.bottom = "50vh";
   heart.style.backgroundColor = color;
 
+  // Mayor dispersión en X e Y
   const randomAngle = Math.random() * 360;
-  const distance = Math.random() * 100 + 50;
+  const distance = Math.random() * 200 + 100; // Rango más amplio de dispersión
   const finalX = Math.cos(randomAngle) * distance;
   const finalY = Math.sin(randomAngle) * distance;
 
@@ -123,10 +134,8 @@ function createHeartFirework(position, color) {
 
   fireworksContainer.appendChild(heart);
 
+  // Todos los corazones desaparecen después de 3 segundos
   setTimeout(() => {
     heart.remove();
-  }, 2000);
+  }, 3000);
 }
-
-yesButton.addEventListener("click", handleYesClick);
-noButton.addEventListener("click", handleNoClick);

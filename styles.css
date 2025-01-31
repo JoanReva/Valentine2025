@@ -188,17 +188,21 @@ body {
   }
   100% {
     transform: scale(50) rotate(-45deg);
-    background-color: #001f3f;
+    background-color: #2d003f;
   }
 }
 
 #loveMessage {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: normal;
   color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   opacity: 0;
   transition: opacity 2s ease-in-out;
+  padding-inline: 4em;
+  padding-top: 1em;
+  
+  text-align: justify;
 }
 
 .hidden {
@@ -217,7 +221,7 @@ body {
   height: 10px;
   background: white;
   border-radius: 50%;
-  box-shadow: 0 0 10px white;
+  box-shadow: 0 0 15px white;
   animation: fireworkLaunch 1s ease-out forwards;
 }
 
@@ -238,9 +242,9 @@ body {
   height: 20px;
   background-color: red;
   transform: rotate(-45deg);
-  animation: explode-heart 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: explode-heart 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
   opacity: 0.9;
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));
 }
 
 .firework-heart::before,
@@ -268,9 +272,12 @@ body {
     transform: translate(0, 0) scale(0.5) rotate(-45deg);
     opacity: 1;
   }
-  100% {
+  50% {
     transform: translate(var(--final-x), var(--final-y)) scale(1.5)
       rotate(-45deg);
+    opacity: 1;
+  }
+  100% {
     opacity: 0;
   }
 }
