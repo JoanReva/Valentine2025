@@ -193,13 +193,13 @@ body {
 }
 
 #loveMessage {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: normal;
   color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   opacity: 0;
   transition: opacity 2s ease-in-out;
-  padding-inline: 4em;
+  padding-inline: 2em;
   padding-top: 1em;
   text-align: justify;
 }
