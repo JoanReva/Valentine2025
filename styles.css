@@ -211,13 +211,25 @@ body {
 }
 
 /* Fuegos artificiales de corazones */
-#fireworks-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+.firework-core {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px white;
+  animation: fireworkLaunch 1s ease-out forwards;
+}
+
+@keyframes fireworkLaunch {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50vh);
+    opacity: 0;
+  }
 }
 
 .firework-heart {
@@ -226,7 +238,9 @@ body {
   height: 20px;
   background-color: red;
   transform: rotate(-45deg);
-  animation: explode 4s ease-in-out forwards;
+  animation: explode-heart 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
 }
 
 .firework-heart::before,
@@ -235,7 +249,7 @@ body {
   position: absolute;
   width: 20px;
   height: 20px;
-  background-color: red;
+  background-color: inherit;
   border-radius: 50%;
 }
 
@@ -249,17 +263,14 @@ body {
   top: 0;
 }
 
-@keyframes explode {
+@keyframes explode-heart {
   0% {
-    transform: translateY(0) scale(0.5) rotate(-45deg);
-    opacity: 1;
-  }
-  50% {
-    transform: translateY(-200px) scale(1.2) rotate(-45deg);
+    transform: translate(0, 0) scale(0.5) rotate(-45deg);
     opacity: 1;
   }
   100% {
-    transform: translateY(-300px) scale(1.5) rotate(-45deg);
+    transform: translate(var(--final-x), var(--final-y)) scale(1.5)
+      rotate(-45deg);
     opacity: 0;
   }
 }

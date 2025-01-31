@@ -5,6 +5,7 @@ const heart = document.querySelector(".heart");
 const body = document.body;
 const loveMessage = document.getElementById("loveMessage");
 const fireworksContainer = document.getElementById("fireworks-container");
+const titleText = document.querySelector(".text");
 
 let hasMoved = false;
 
@@ -53,6 +54,7 @@ function handleYesClick() {
     body.style.background = "#001f3f";
     heart.style.display = "none";
 
+    titleText.textContent = "¡Eres mi Valentine! 💖";
     // Muestra el mensaje romántico
     loveMessage.classList.remove("hidden");
     loveMessage.classList.add("fade-in");
@@ -71,23 +73,59 @@ function showSnackbar(message) {
     snackbar.classList.remove("show");
   }, 3000);
 }
-
 function startFireworks() {
-  for (let i = 0; i < 50; i++) {
-    createHeartFirework();
+  for (let i = 0; i < 10; i++) {
+    setTimeout(() => {
+      launchFirework();
+    }, i * 500);
   }
 }
 
-function createHeartFirework() {
+function launchFirework() {
+  const firework = document.createElement("div");
+  firework.classList.add("firework-core");
+  firework.style.left = `${Math.random() * 80 + 10}vw`;
+  firework.style.bottom = "0px";
+
+  fireworksContainer.appendChild(firework);
+
+  setTimeout(() => {
+    firework.remove();
+    explodeFirework(firework.style.left);
+  }, 1000);
+}
+
+function explodeFirework(position) {
+  const colors = ["#ff4d6d", "#ff9a9e", "#ffd700", "#8a2be2", "#00c3ff"];
+  const numParticles = 20;
+
+  for (let i = 0; i < numParticles; i++) {
+    setTimeout(() => {
+      createHeartFirework(position, colors[i % colors.length]);
+    }, i * 100);
+  }
+}
+
+function createHeartFirework(position, color) {
   const heart = document.createElement("div");
   heart.classList.add("firework-heart");
-  heart.style.left = `${Math.random() * 100}vw`;
-  heart.style.top = `${Math.random() * 100}vh`;
+  heart.style.left = position;
+  heart.style.bottom = "50vh";
+  heart.style.backgroundColor = color;
+
+  const randomAngle = Math.random() * 360;
+  const distance = Math.random() * 100 + 50;
+  const finalX = Math.cos(randomAngle) * distance;
+  const finalY = Math.sin(randomAngle) * distance;
+
+  heart.style.setProperty("--final-x", `${finalX}px`);
+  heart.style.setProperty("--final-y", `${finalY}px`);
+
   fireworksContainer.appendChild(heart);
 
   setTimeout(() => {
     heart.remove();
-  }, 4000);
+  }, 2000);
 }
 
 yesButton.addEventListener("click", handleYesClick);
