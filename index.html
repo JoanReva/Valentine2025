@@ -21,6 +21,7 @@
         background: linear-gradient(135deg, #ff9a9e, #fad0c4);
         text-align: center;
         font-family: "Pacifico", cursive;
+        overflow: hidden;
       }
 
       .heart {
@@ -87,6 +88,9 @@
 
       .buttons {
         margin-top: 10px;
+        position: relative;
+        display: flex;
+        gap: 20px;
       }
 
       .button {
@@ -94,12 +98,13 @@
         color: #ff4d6d;
         border: none;
         padding: 14px 28px;
-        margin: 10px;
         font-size: 22px;
         font-weight: bold;
         border-radius: 40px;
         cursor: pointer;
         transition: transform 0.2s, background 0.3s;
+        white-space: nowrap; /* Asegura que el texto esté en una sola línea */
+        position: absolute;
       }
 
       .button:hover {
@@ -151,19 +156,29 @@
     <div class="buttons">
       <button
         class="button"
-        onclick="showSnackbar('¡Sabía que dirías que sí, porque soy genial! 😎... Nah, es porque te amooo! 💖')"
+        onclick="showSnackbar('¡Sabía que dirías que sí, porque soy genial! 😎\n...\n Nah, ¡Es porque te amooo! 💖')"
+        style="position: relative; left: -100px;"
       >
         Sí, obvio
       </button>
       <button
         class="button"
-        onclick="showSnackbar('¡JAJA, no tienes opción! 😆💕')"
+        id="noButton"
+        onmouseover="moveButton()"
       >
         Jaja, no
       </button>
     </div>
     <div id="snackbar" class="snackbar"></div>
     <script>
+      let moveCount = 0;
+      const maxMoves = 3;
+      const button = document.getElementById("noButton");
+
+      // Guardar la posición original del botón
+      let originalX = button.offsetLeft;
+      let originalY = button.offsetTop;
+
       function showSnackbar(message) {
         var snackbar = document.getElementById("snackbar");
         snackbar.innerText = message;
@@ -171,6 +186,38 @@
         setTimeout(function () {
           snackbar.classList.remove("show");
         }, 3000);
+      }
+
+      function moveButton() {
+        if (moveCount < maxMoves) {
+          const safePadding = 20;
+
+          // Obtener el tamaño de la ventana y del botón
+          const screenWidth = window.innerWidth;
+          const screenHeight = window.innerHeight;
+          const buttonWidth = button.offsetWidth;
+          const buttonHeight = button.offsetHeight;
+
+          // Calcular los límites para que no se salga de la pantalla
+          const maxX = screenWidth - buttonWidth - safePadding;
+          const maxY = screenHeight - buttonHeight - safePadding;
+          const minX = safePadding;
+          const minY = safePadding;
+
+          // Generar nuevas coordenadas aleatorias dentro de los límites visibles
+          const newX = Math.random() * (maxX - minX) + minX;
+          const newY = Math.random() * (maxY - minY) + minY;
+
+          button.style.position = "absolute";
+          button.style.left = `${newX}px`;
+          button.style.top = `${newY}px`;
+
+          moveCount++;
+        } else {
+          // Después de 3 movimientos, regresar a la posición original
+          button.style.left = `${originalX}px`;
+          button.style.top = `${originalY}px`;
+        }
       }
     </script>
   </body>
