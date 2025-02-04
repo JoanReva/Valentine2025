@@ -24,6 +24,17 @@ body {
   overflow: hidden;
 }
 
+/* Contenedor para los fuegos artificiales */
+#fireworks-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
 .heart {
   position: relative;
   width: 140px;
@@ -278,5 +289,79 @@ body {
   }
   100% {
     opacity: 0;
+  }
+}
+
+/* =======================
+   Ajustes para dispositivos móviles
+   ======================= */
+@media (max-width: 768px) {
+  html,
+  body {
+    padding: 10px;
+  }
+
+  .heart {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+  }
+
+  .heart::before,
+  .heart::after {
+    width: 100px;
+    height: 100px;
+  }
+  .heart::before {
+    top: -50px;
+  }
+  .heart::after {
+    left: 50px;
+  }
+
+  .text {
+    font-size: 24px;
+    margin: 10px;
+  }
+
+  .buttons {
+    width: 90%;
+    flex-direction: column;
+    gap: 10px;
+    height: auto;
+  }
+
+  .button {
+    width: 100%;
+    font-size: 18px;
+    padding: 10px 20px;
+  }
+
+  #loveMessage {
+    font-size: 18px;
+    padding-inline: 1em;
+  }
+
+  .snackbar {
+    min-width: 80%;
+    font-size: 16px;
+    bottom: 20px;
+    padding: 12px;
+  }
+
+  /* Ajustes para fuegos artificiales en pantallas pequeñas */
+  .firework-core {
+    width: 8px;
+    height: 8px;
+  }
+
+  .firework-heart {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Para ajustar la posición de explosión (override de inline style) */
+  .firework-heart {
+    bottom: 40vh !important;
   }
 }
