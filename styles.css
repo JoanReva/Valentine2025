@@ -32,7 +32,7 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .heart {
@@ -220,7 +220,7 @@ body {
 }
 
 .fade-in {
-  display: visible;
+  display: block;
   opacity: 1;
 }
 
@@ -292,13 +292,14 @@ body {
   }
 }
 
-/* =======================
-   Ajustes para dispositivos móviles
-   ======================= */
-@media (max-width: 768px) {
+/* ======================
+   Media queries para móviles
+   ====================== */
+@media only screen and (max-width: 600px) {
   html,
   body {
-    padding: 10px;
+    /* Puedes ajustar el font-size base si lo deseas */
+    font-size: 16px;
   }
 
   .heart {
@@ -307,20 +308,8 @@ body {
     margin-bottom: 20px;
   }
 
-  .heart::before,
-  .heart::after {
-    width: 100px;
-    height: 100px;
-  }
-  .heart::before {
-    top: -50px;
-  }
-  .heart::after {
-    left: 50px;
-  }
-
   .text {
-    font-size: 24px;
+    font-size: 28px;
     margin: 10px;
   }
 
@@ -332,36 +321,20 @@ body {
   }
 
   .button {
-    width: 100%;
     font-size: 18px;
     padding: 10px 20px;
-  }
-
-  #loveMessage {
-    font-size: 18px;
-    padding-inline: 1em;
+    width: 100%;
   }
 
   .snackbar {
-    min-width: 80%;
-    font-size: 16px;
-    bottom: 20px;
-    padding: 12px;
+    font-size: 24px;
+    padding: 20px;
   }
 
-  /* Ajustes para fuegos artificiales en pantallas pequeñas */
-  .firework-core {
-    width: 8px;
-    height: 8px;
-  }
-
-  .firework-heart {
-    width: 16px;
-    height: 16px;
-  }
-
-  /* Para ajustar la posición de explosión (override de inline style) */
-  .firework-heart {
-    bottom: 40vh !important;
+  #loveMessage {
+    font-size: 20px;
+    /* Para que el contenido largo sea scrollable */
+    max-height: 50vh;
+    overflow-y: auto;
   }
 }

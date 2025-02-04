@@ -79,13 +79,13 @@ function showSnackbar(message) {
 yesButton.addEventListener("click", handleYesClick);
 noButton.addEventListener("click", handleNoClick);
 
-//Fuegos artificiales
+// Fuegos artificiales
 function startFireworks() {
-  //Cantidad de fuegos artificiales
+  // Cantidad de fuegos artificiales
   for (let i = 0; i < 10; i++) {
     setTimeout(() => {
       launchFirework();
-    }, i * 200); // Retraso entre lanzamiento
+    }, i * 200); // Retraso entre lanzamientos
   }
 }
 
@@ -117,11 +117,13 @@ function explodeFirework(position) {
 }
 
 function createHeartFirework(position, color) {
-  const heart = document.createElement("div");
-  heart.classList.add("firework-heart");
-  heart.style.left = position;
-  heart.style.bottom = "50vh";
-  heart.style.backgroundColor = color;
+  const heartFirework = document.createElement("div");
+  heartFirework.classList.add("firework-heart");
+  heartFirework.style.left = position;
+  // Ajusta la posición vertical de la explosión según el dispositivo
+  const isMobile = window.innerWidth <= 768;
+  heartFirework.style.bottom = isMobile ? "60vh" : "50vh";
+  heartFirework.style.backgroundColor = color;
 
   // Mayor dispersión en X e Y
   const randomAngle = Math.random() * 360;
@@ -129,13 +131,13 @@ function createHeartFirework(position, color) {
   const finalX = Math.cos(randomAngle) * distance;
   const finalY = Math.sin(randomAngle) * distance;
 
-  heart.style.setProperty("--final-x", `${finalX}px`);
-  heart.style.setProperty("--final-y", `${finalY}px`);
+  heartFirework.style.setProperty("--final-x", `${finalX}px`);
+  heartFirework.style.setProperty("--final-y", `${finalY}px`);
 
-  fireworksContainer.appendChild(heart);
+  fireworksContainer.appendChild(heartFirework);
 
   // Todos los corazones desaparecen después de 3 segundos
   setTimeout(() => {
-    heart.remove();
+    heartFirework.remove();
   }, 3000);
 }
